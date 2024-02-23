@@ -1,7 +1,7 @@
 # Used by `image`, `push` & `deploy` targets, override as required
 IMAGE_REG ?= docker.io
 IMAGE_REPO ?= shrutifarkya/dotnet-monitoring
-IMAGE_TAG ?= ${env.BUILD_NUMBER}
+IMAGE_TAG ?= $(BUILD_NUMBER)
 
 # Used by `deploy` target, sets Azure webap defaults, override as required
 AZURE_RES_GROUP ?= demoapps
