@@ -68,7 +68,14 @@ pipeline{
                 sh "docker run -d --name dotnet -p 5000:5000 shrutifarkya/dotnet-monitoring:${env.BUILD_NUMBER}"
             } 
         }
-    
+        stage("Deploy to Kubernetes"){
+            steps {
+                script {
+                    sh "kubectl apply -f kubernetes/deployment.yaml"
+                    sh "kubectl apply -f kubernetes/service.yaml"
+                }
+            }
+        }
 
     }
 }
