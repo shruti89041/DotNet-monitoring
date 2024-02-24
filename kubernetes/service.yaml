@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-monitoring
+spec:
+  selector:
+    app: dotnet-monitoring
+  ports:
+    - protocol: TCP
+      port: 30698  # Specify the desired port here
+      targetPort: 5000
