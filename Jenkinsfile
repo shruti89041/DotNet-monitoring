@@ -72,7 +72,7 @@ pipeline{
             steps {
                 script {
             // Set KUBECONFIG environment variable to point to the kubeconfig file
-                    env.KUBECONFIG = "/home/ubuntu/.kube/config"
+                    env.KUBECONFIG = "~/.kube/config"
 
             // Apply Kubernetes manifests using kubectl
                     sh "kubectl apply -f kubernetes/deployment.yaml"
