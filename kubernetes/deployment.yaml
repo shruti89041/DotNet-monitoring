@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-monitoring
+  template:
+    metadata:
+      labels:
+        app: dotnet-monitoring
+    spec:
+      containers:
+      - name: dotnet-monitoring
+        image: shrutifarkya/dotnet-monitoring:${BUILD_NUMBER} # Use the Jenkins build number dynamically
+        ports:
+        - containerPort: 5000
