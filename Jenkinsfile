@@ -68,14 +68,18 @@ pipeline{
                 sh "docker run -d --name dotnet -p 5000:5000 shrutifarkya/dotnet-monitoring:${env.BUILD_NUMBER}"
             } 
         }
-        stage("Deploy to Kubernetes"){
+        stage("Deploy to Kubernetes") {
             steps {
                 script {
+            // Set KUBECONFIG environment variable to point to the kubeconfig file
+                    env.KUBECONFIG = "/home/ubuntu/.kube/config"
+
+            // Apply Kubernetes manifests using kubectl
                     sh "kubectl apply -f kubernetes/deployment.yaml"
                     sh "kubectl apply -f kubernetes/service.yaml"
-                }
+                 }
             }
-        }
+       }
 
     }
 }
