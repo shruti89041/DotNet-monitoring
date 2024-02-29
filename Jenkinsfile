@@ -68,18 +68,15 @@ pipeline{
                 sh "docker run -d --name dotnet -p 5000:5000 shrutifarkya/dotnet-monitoring:${env.BUILD_NUMBER}"
             } 
         }
-        stage("Deploy to Kubernetes") {
+        stage('Deploy to Kubernetes') {
             steps {
                 script {
-            // Set KUBECONFIG environment variable to point to the kubeconfig file
-                    env.KUBECONFIG = "~/.kube/config"
-
-            // Apply Kubernetes manifests using kubectl
-                    sh "kubectl apply -f kubernetes/deployment.yaml"
-                    //sh "kubectl apply -f kubernetes/service.yaml"
-                 }
-            }
-       }
+                    sh "kubectl run dotnet-monitoring --image=shrutifarkya/dotnet-monitoring:${env.BUILD_NUMBER} --image-pull-policy=Always"
+                    sh "kubectl expose pod dotnet-monitoring --port=5000 --target-port=5000 --name dotnet-monitoring-service --type=NodePort"
+                    sh "kubectl create ingress dotnet-monitoring-ingress --rule=dotnet-monitoring.example.com/*=dotnet-monitoring-service:5000 --class=nginx"
+                }
+             }
+         }
 
     }
 }
