@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dotnet-monitoring
 spec:
-  replicas: 1
+  replicas: 3  # Adjust the number of replicas as needed
   selector:
     matchLabels:
       app: dotnet-monitoring
