@@ -7,5 +7,6 @@ spec:
     app: dotnet-monitoring
   ports:
     - protocol: TCP
-      port: 30698  # Specify the desired port here
+      port: 80  # Expose the service on port 80
       targetPort: 5000
+  type: LoadBalancer  # Use a LoadBalancer to expose the service externally
