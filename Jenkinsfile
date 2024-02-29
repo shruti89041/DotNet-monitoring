@@ -76,7 +76,7 @@ pipeline{
 
             // Apply Kubernetes manifests using kubectl
                     sh "kubectl apply -f kubernetes/deployment.yaml"
-                    sh "kubectl apply -f kubernetes/service.yaml"
+                    //sh "kubectl apply -f kubernetes/service.yaml"
                  }
             }
        }
