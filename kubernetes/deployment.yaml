@@ -1,9 +1,15 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dotnet-monitoring
 spec:
-  replicas: 3  # Adjust the number of replicas as needed
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
   selector:
     matchLabels:
       app: dotnet-monitoring
@@ -13,7 +19,11 @@ spec:
         app: dotnet-monitoring
     spec:
       containers:
-      - name: dotnet-monitoring
-        image: shrutifarkya/dotnet-monitoring:${BUILD_NUMBER} # Use the Jenkins build number dynamically
-        ports:
-        - containerPort: 5000
+        - name: dotnet-monitoring
+          image: shrutifarkya/dotnet-monitoring:${BUILD_NUMBER}
+          securityContext:
+            privileged: false
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 80
