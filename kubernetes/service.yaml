@@ -9,4 +9,4 @@ spec:
     - protocol: TCP
       port: 80  # Expose the service on port 80
       targetPort: 5000
-  type: LoadBalancer  # Use a LoadBalancer to expose the service externally
+  type: NodePort  # Use a LoadBalancer to expose the service externally
